@@ -1,0 +1,581 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>RAMC Association – Ulster Branch</title>
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background:
+        linear-gradient(rgba(0,0,0,0.72), rgba(0,0,0,0.82)),
+        linear-gradient(135deg, #050505, #16090d 45%, #050505);
+    color: #ffffff;
+    line-height: 1.6;
+}
+
+/* HEADER */
+
+header {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Decorative RAMC-style background */
+
+header::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle at 75% 50%, rgba(150,0,20,0.25), transparent 35%),
+        linear-gradient(145deg,
+            rgba(120,0,20,0.35),
+            transparent 35%,
+            rgba(10,30,55,0.30) 55%,
+            rgba(180,130,0,0.15));
+    z-index: 0;
+}
+
+/* NAVIGATION */
+
+nav {
+    position: relative;
+    z-index: 5;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 25px 5%;
+    border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.logo {
+    font-size: 27px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.logo span {
+    display: block;
+    color: #f5b91c;
+    font-size: 16px;
+    letter-spacing: 4px;
+    margin-top: 3px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 38px;
+    list-style: none;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 16px;
+    text-transform: uppercase;
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+    color: #f5b91c;
+}
+
+/* HERO */
+
+.hero {
+    position: relative;
+    z-index: 2;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    padding: 70px 6%;
+}
+
+.hero-content {
+    max-width: 850px;
+}
+
+.hero h1 {
+    font-size: clamp(48px, 7vw, 95px);
+    line-height: 0.95;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 30px;
+    text-shadow: 3px 3px 12px rgba(0,0,0,0.7);
+}
+
+.hero h1 span {
+    color: #f5b91c;
+}
+
+.hero p {
+    font-size: 21px;
+    max-width: 720px;
+    color: #eeeeee;
+    margin-bottom: 35px;
+}
+
+.gold-line {
+    width: 110px;
+    height: 4px;
+    background: #f5b91c;
+    margin-bottom: 28px;
+}
+
+.button {
+    display: inline-block;
+    padding: 15px 30px;
+    background: #f5b91c;
+    color: #111;
+    text-decoration: none;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    transition: 0.3s;
+}
+
+.button:hover {
+    background: #ffffff;
+}
+
+/* SECTIONS */
+
+section {
+    padding: 90px 7%;
+    position: relative;
+}
+
+.section-dark {
+    background: rgba(0,0,0,0.75);
+}
+
+.section-title {
+    text-align: center;
+    margin-bottom: 55px;
+}
+
+.section-title h2 {
+    font-size: 48px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
+
+.section-title p {
+    color: #ccc;
+    max-width: 750px;
+    margin: auto;
+}
+
+/* ABOUT */
+
+.about-grid {
+    max-width: 1150px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 45px;
+}
+
+.about-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(245,185,28,0.25);
+    padding: 35px;
+    border-radius: 8px;
+}
+
+.about-card h3 {
+    color: #f5b91c;
+    font-size: 25px;
+    margin-bottom: 15px;
+}
+
+/* PURPOSE */
+
+.purpose {
+    text-align: center;
+    background:
+        linear-gradient(rgba(20,0,5,0.9), rgba(0,0,0,0.9));
+}
+
+.purpose-content {
+    max-width: 950px;
+    margin: auto;
+}
+
+.purpose-content h2 {
+    font-size: 48px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+}
+
+.purpose-content p {
+    font-size: 19px;
+    color: #ddd;
+    margin-bottom: 20px;
+}
+
+/* MEMBERS */
+
+.member-area {
+    background: rgba(20,20,20,0.92);
+}
+
+.member-box {
+    max-width: 900px;
+    margin: auto;
+    text-align: center;
+    padding: 60px 30px;
+    border: 1px solid rgba(245,185,28,0.35);
+    border-radius: 10px;
+    background: rgba(0,0,0,0.45);
+}
+
+.member-box h2 {
+    font-size: 42px;
+    margin-bottom: 20px;
+}
+
+.member-box p {
+    color: #ddd;
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+/* CONTACT */
+
+.contact {
+    background: #080808;
+}
+
+.contact-grid {
+    max-width: 1000px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.contact-box {
+    padding: 35px;
+    background: rgba(255,255,255,0.05);
+    border-left: 4px solid #f5b91c;
+}
+
+.contact-box h3 {
+    color: #f5b91c;
+    margin-bottom: 15px;
+}
+
+.contact-box a {
+    color: white;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    padding: 35px 20px;
+    background: #030303;
+    border-top: 1px solid rgba(245,185,28,0.2);
+    color: #aaa;
+}
+
+footer strong {
+    color: white;
+}
+
+/* MOBILE */
+
+@media (max-width: 800px) {
+
+    nav {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 18px;
+    }
+
+    .hero {
+        padding: 60px 7%;
+    }
+
+    .hero h1 {
+        font-size: 52px;
+    }
+
+    .hero p {
+        font-size: 18px;
+    }
+
+    .about-grid,
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .section-title h2,
+    .purpose-content h2 {
+        font-size: 38px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header id="home">
+
+<nav>
+
+<div class="logo">
+RAMC ASSOCIATION
+<span>ULSTER BRANCH</span>
+</div>
+
+<ul class="nav-links">
+<li><a href="#about-ramc">About the RAMC</a></li>
+<li><a href="#about-us">About Us</a></li>
+<li><a href="#members">Member Area</a></li>
+<li><a href="#contact">Contact Us</a></li>
+</ul>
+
+</nav>
+
+<div class="hero">
+
+<div class="hero-content">
+
+<div class="gold-line"></div>
+
+<h1>
+Supporting the<br>
+<span>RAMC Community</span><br>
+Past & Present
+</h1>
+
+<p>
+Welcome to the Royal Army Medical Corps Association
+Ulster Branch. We are a community united by service,
+history and our commitment to supporting one another.
+</p>
+
+<a href="#about-us" class="button">
+Discover Our Branch
+</a>
+
+</div>
+
+</div>
+
+</header>
+
+
+<!-- ABOUT THE RAMC -->
+
+<section id="about-ramc" class="section-dark">
+
+<div class="section-title">
+
+<h2>About the RAMC</h2>
+
+<p>
+The Royal Army Medical Corps has served alongside the
+British Army for generations, providing medical care,
+support and expertise wherever it has been required.
+</p>
+
+</div>
+
+<div class="about-grid">
+
+<div class="about-card">
+
+<h3>Our Heritage</h3>
+
+<p>
+The RAMC has a proud history of caring for soldiers in
+conflict, during operations and in peacetime. From field
+ambulances and medical units to modern battlefield
+medicine, its personnel have consistently placed the
+care of others at the centre of their service.
+</p>
+
+</div>
+
+<div class="about-card">
+
+<h3>Our Community</h3>
+
+<p>
+The RAMC community extends beyond those who wore the
+RAMC cap badge. It includes the people, units and
+supporting arms who served alongside us and contributed
+to the medical mission.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ABOUT US -->
+
+<section id="about-us" class="purpose">
+
+<div class="purpose-content">
+
+<div class="gold-line" style="margin-left:auto;margin-right:auto;"></div>
+
+<h2>About Us</h2>
+
+<p>
+The Royal Army Medical Corps Association – Ulster Branch
+exists to support our members, preserve our shared
+history and maintain the strong bonds created through
+service.
+</p>
+
+<p>
+We welcome former members of the RAMC and those from its
+supporting arms who served alongside us. Our door is
+always open to those who shared our service, regardless
+of which cap badge they wore.
+</p>
+
+<p>
+We recognise that the RAMC could not have fulfilled its
+role without the support of the wider military community.
+Just as we supported those we were providing medical care
+for, we will always value and support those who served
+alongside us.
+</p>
+
+<p>
+Our branch is about friendship, remembrance, welfare,
+community and ensuring that the traditions and history
+of the RAMC continue to be valued by future generations.
+</p>
+
+</div>
+
+</section>
+
+
+<!-- MEMBER AREA -->
+
+<section id="members" class="member-area">
+
+<div class="section-title">
+
+<h2>Member Area</h2>
+
+<p>
+A dedicated area for branch members.
+</p>
+
+</div>
+
+<div class="member-box">
+
+<h2>Members' Area</h2>
+
+<p>
+This area will provide members with access to branch
+information, upcoming events, notices, resources and
+other information intended specifically for our members.
+</p>
+
+<a href="#" class="button">
+Member Login
+</a>
+
+</div>
+
+</section>
+
+
+<!-- CONTACT -->
+
+<section id="contact" class="contact">
+
+<div class="section-title">
+
+<h2>Contact Us</h2>
+
+<p>
+Whether you are a former member, a supporter of the
+RAMC community or someone wishing to find out more,
+we would be pleased to hear from you.
+</p>
+
+</div>
+
+<div class="contact-grid">
+
+<div class="contact-box">
+
+<h3>Ulster Branch</h3>
+
+<p>
+Royal Army Medical Corps Association<br>
+Ulster Branch
+</p>
+
+</div>
+
+<div class="contact-box">
+
+<h3>Email</h3>
+
+<p>
+Our contact details will be added here.
+</p>
+
+</div>
+
+</div>
+
+</section>
+
+
+<footer>
+
+<p>
+<strong>Royal Army Medical Corps Association – Ulster Branch</strong>
+</p>
+
+<p>
+Supporting the RAMC Community – Past & Present
+</p>
+
+<p>
+In Arduis Fidelis
+</p>
+
+</footer>
+
+</body>
+</html>
