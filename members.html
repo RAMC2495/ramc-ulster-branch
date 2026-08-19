@@ -108,9 +108,9 @@ main {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 30px;
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 30px !important;
     align-items: stretch;
 }
 
@@ -214,13 +214,6 @@ footer p {
     font-size: 40px;
 }
 
-.member-grid {
-    display: grid !important;
-    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
-    width: 100% !important;
-    max-width: 1200px !important;
-    gap: 30px !important;
-}
 
 </style>
 </head>
