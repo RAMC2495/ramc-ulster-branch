@@ -1,8 +1,5 @@
 backend:
   name: git-gateway
-  branch: mainbackend:
-  name: github
-  repo: RAMC2495/ramc-ulster-branch
   branch: main
 
 media_folder: "images/uploads"
