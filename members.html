@@ -97,10 +97,6 @@ form.addEventListener('submit', async (event) => {
 
     window.location.href = 'member-area.html';
 });
-
-supabase.auth.getSession().then(({ data }) => {
-    if (data.session) window.location.href = 'member-area.html';
-});
 </script>
 </body>
 </html>
