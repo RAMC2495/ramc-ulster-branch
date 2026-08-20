@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Members Area – RAMC Association Ulster Branch</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;color:#fff;min-height:100vh;background:linear-gradient(rgba(0,0,0,.42),rgba(0,0,0,.68)),url("Background RAMC.png");background-size:cover;background-position:center;background-attachment:fixed}
+header{padding:25px 5%;display:flex;justify-content:space-between;align-items:center;background:rgba(0,0,0,.55);border-bottom:1px solid rgba(255,255,255,.2)}
+.logo{text-decoration:none;color:#fff}.logo h1{font-size:28px;letter-spacing:2px}.logo span{display:block;color:#f5c400;font-size:16px;font-weight:bold;letter-spacing:5px}
+nav{display:flex;gap:25px;align-items:center}nav a,nav button{color:#fff;text-decoration:none;font-weight:bold;background:none;border:0;cursor:pointer;font-size:15px}nav a:hover,nav button:hover{color:#f5c400}
+main{max-width:1200px;margin:auto;padding:80px 30px}
+.hero{text-align:center;margin-bottom:55px}.gold-line{width:120px;height:5px;background:#f5c400;margin:0 auto 25px}h2{font-size:52px;text-transform:uppercase}h2 span{color:#f5c400}.welcome{margin-top:15px;font-size:18px;color:#ddd}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:25px}.card{background:rgba(0,0,0,.75);border:1px solid #f5c400;padding:35px 25px;text-align:center;min-height:220px;display:flex;flex-direction:column;justify-content:space-between}.card h3{color:#f5c400;font-size:25px;margin-bottom:15px}.card p{color:#eee;font-size:16px}.card a{display:inline-block;margin-top:25px;padding:12px 18px;border:1px solid #f5c400;color:#fff;text-decoration:none;font-weight:bold}.card a:hover{background:#f5c400;color:#000}
+.notice{max-width:900px;margin:45px auto 0;padding:18px 22px;background:rgba(245,196,0,.12);border-left:3px solid #f5c400;text-align:center;color:#eee}.status{display:none}
+@media(max-width:850px){header{flex-direction:column;gap:20px;text-align:center}.cards{grid-template-columns:1fr}h2{font-size:40px}nav{flex-wrap:wrap;justify-content:center}}
+</style>
+</head>
+<body>
+<header>
+<a href="index.html" class="logo"><h1>RAMC ASSOCIATION</h1><span>ULSTER BRANCH</span></a>
+<nav>
+<a href="index.html">PUBLIC WEBSITE</a>
+<a href="member-area.html">MEMBERS AREA</a>
+<button id="logout">LOG OUT</button>
+</nav>
+</header>
+<main>
+<section class="hero">
+<div class="gold-line"></div>
+<h2>Members <span>Area</span></h2>
+<p id="welcome" class="welcome">Checking your membership...</p>
+</section>
+<section class="cards">
+<div class="card"><div><h3>EVENTS</h3><p>Branch events and important dates for members.</p></div><a href="#">VIEW EVENTS</a></div>
+<div class="card"><div><h3>NEWS &amp; UPDATES</h3><p>Branch news and updates for members.</p></div><a href="#">VIEW NEWS</a></div>
+<div class="card"><div><h3>CONTACT THE SECRETARY</h3><p>Member contact details and branch enquiries.</p></div><a href="#">CONTACT SECRETARY</a></div>
+</section>
+<div class="notice">This is the members-only area. Member content will be connected to Supabase so it is available only after authentication.</div>
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://owysfcghmzskbfebrrld.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_ejW6kFjCSXR31q2uN1PPBg_RdzQNRUN';
+const { createClient } = window.supabase;
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+async function protectPage() {
+    const { data, error } = await supabase.auth.getSession();
+    if (error || !data.session) {
+        window.location.href = 'members.html';
+        return;
+    }
+    const email = data.session.user.email || 'authorised member';
+    document.getElementById('welcome').textContent = 'Welcome, ' + email + '. You are signed in as an authorised member.';
+}
+
+document.getElementById('logout').addEventListener('click', async () => {
+    await supabase.auth.signOut();
+    window.location.href = 'members.html';
+});
+
+protectPage();
+</script>
+</body>
+</html>
