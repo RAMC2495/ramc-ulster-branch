@@ -17,7 +17,9 @@ h2{font-size:42px;text-transform:uppercase;margin-bottom:12px}h2 span{color:#f5c
 .intro{font-size:17px;color:#eee;margin-bottom:32px}
 label{display:block;text-align:left;font-weight:bold;margin:18px 0 8px;color:#f5c400}
 input{width:100%;padding:14px 15px;border:1px solid #aaa;background:rgba(255,255,255,.95);color:#111;font-size:16px}
-button{width:100%;margin-top:28px;padding:15px;border:2px solid #f5c400;background:transparent;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}button:hover{background:#f5c400;color:#000}
+button{width:100%;margin-top:28px;padding:15px;border:2px solid #f5c400;background:transparent;color:#fff;font-size:16px;font-weight:bold;cursor:pointer}button:hover{background:#f5c400;color:#000}button:disabled{opacity:.6;cursor:wait}
+.message{display:none;margin-top:20px;padding:12px;border-left:3px solid #f5c400;background:rgba(245,196,0,.12);color:#eee;text-align:left}
+.message.error{border-left-color:#d9534f;background:rgba(217,83,79,.12)}
 .notice{margin-top:25px;padding:15px;background:rgba(245,196,0,.12);border-left:3px solid #f5c400;color:#eee;font-size:14px;line-height:1.5}
 .back{display:inline-block;margin-top:28px;color:#f5c400;text-decoration:none;font-weight:bold}.back:hover{color:#fff}
 footer{background:rgba(0,0,0,.88);text-align:center;padding:30px}footer p{margin:6px}.motto{color:#f5c400;letter-spacing:4px;font-weight:bold}
@@ -40,14 +42,15 @@ footer{background:rgba(0,0,0,.88);text-align:center;padding:30px}footer p{margin
 <div class="gold-line"></div>
 <h2>Members <span>Login</span></h2>
 <p class="intro">This area is restricted to authorised members of the RAMC Association – Ulster Branch.</p>
-<form>
+<form id="login-form">
 <label for="member-email">MEMBER EMAIL</label>
 <input id="member-email" type="email" autocomplete="username" placeholder="Enter your email address" required>
 <label for="member-password">PASSWORD</label>
 <input id="member-password" type="password" autocomplete="current-password" placeholder="Enter your password" required>
-<button type="submit">LOG IN</button>
+<button id="login-button" type="submit">LOG IN</button>
 </form>
-<div class="notice">Members only. Authentication will be connected to this front door before the Members Area is made available.</div>
+<div id="message" class="message"></div>
+<div class="notice">Members only. Your account must be authorised by the Branch. Public registration is disabled.</div>
 <a class="back" href="index.html">← BACK TO PUBLIC WEBSITE</a>
 </section>
 </main>
@@ -56,5 +59,48 @@ footer{background:rgba(0,0,0,.88);text-align:center;padding:30px}footer p{margin
 <p>Supporting the RAMC Community – Past &amp; Present</p>
 <p class="motto">IN ARDUIS FIDELIS</p>
 </footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+const SUPABASE_URL = 'https://owysfcghmzskbfebrrld.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY = 'sb_publishable_ejW6kFjCSXR31q2uN1PPBg_RdzQNRUN';
+const { createClient } = window.supabase;
+const supabase = createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+const form = document.getElementById('login-form');
+const button = document.getElementById('login-button');
+const message = document.getElementById('message');
+
+function showMessage(text, error = false) {
+    message.textContent = text;
+    message.className = 'message' + (error ? ' error' : '');
+    message.style.display = 'block';
+}
+
+form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    message.style.display = 'none';
+    button.disabled = true;
+    button.textContent = 'LOGGING IN...';
+
+    const email = document.getElementById('member-email').value.trim();
+    const password = document.getElementById('member-password').value;
+
+    const { error } = await supabase.auth.signInWithPassword({ email, password });
+
+    if (error) {
+        showMessage('Login unsuccessful. Please check your email address and password.', true);
+        button.disabled = false;
+        button.textContent = 'LOG IN';
+        return;
+    }
+
+    window.location.href = 'member-area.html';
+});
+
+supabase.auth.getSession().then(({ data }) => {
+    if (data.session) window.location.href = 'member-area.html';
+});
+</script>
 </body>
 </html>
